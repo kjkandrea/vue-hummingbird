@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <post-form v-if="me" />
     <div>
       <post-card />
       <post-card />

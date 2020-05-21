@@ -81,7 +81,19 @@
     methods: {
       onSubmitForm() {
         if(this.$refs.form.validate()){
-          alert('회원가입 시도 완료')
+          // dispatch는 Promise이기에 then을 쓸 수 있음
+          this.$store.dispatch('users/signUp', {
+            nickname: this.nickname,
+            email : this.email
+          })
+            .then(() => {
+              this.$router.push({
+                path: '/'
+              });
+            })
+            .catch(() => {
+              alert('유효하지 않습니다. 입력란을 확인해주세요.')
+            })
         }else {
           alert('유효하지 않습니다. 입력란을 확인해주세요.')
         }
