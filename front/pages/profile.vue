@@ -15,7 +15,7 @@
               color="orange"
               type="submit"
             >
-              수정
+              수정 
             </v-btn>
           </v-form>
         </v-container>
@@ -24,8 +24,8 @@
         <v-container>
           <v-subheader>팔로잉</v-subheader>
           <follow-list 
-            v-bind:follow="followerList" 
-            eventStatus="followerList"
+            :users="followingList" 
+            :remove="removeFollowing"
           />
         </v-container>
       </v-card>
@@ -33,8 +33,8 @@
         <v-container>
           <v-subheader>팔로워</v-subheader>
           <follow-list 
-            v-bind:follow="followingList" 
-            eventStatus="followingList"
+            :users="followerList" 
+            :remove="removeFollower"
           />
         </v-container>
       </v-card>
@@ -71,13 +71,20 @@
         this.$store.dispatch('users/changeNickname', {
           nickname: this.nickname
         })
-      }
+      },
+      removeFollower(id) {
+        this.$store.dispatch('users/removeFollower', { id })
+      },
+      removeFollowing(id) {
+        this.$store.dispatch('users/removeFollowing', { id })
+      },
     },
     head() {
       return {
         title: '프로필'
       }
-    }
+    },
+    middleware: 'authenticated'
   }
 </script>
 

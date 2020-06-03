@@ -1,28 +1,24 @@
 <template>
-  <div>
-    <ul>
-      <li v-for="f in follow" :key="f.id">
-        <span>{{f.nickname}}</span>
-        <v-icon @click="onRemoveFollow(f)">mdi-minus-circle-outline</v-icon>
-      </li>
-    </ul>
-  </div>
+  <ul>
+    <li v-for="user in users" :key="user.id">
+      <span>{{user.nickname}}</span>
+      <v-icon @click="remove(user.id)">mdi-minus-circle-outline</v-icon>
+    </li>
+  </ul>
 </template>
 
 <script>
   export default {
     props: {
-      follow: Array,
-      eventStatus: String
-    },
-    methods: {
-      onRemoveFollow(f) {
-        this.$store.dispatch('users/removeFollow', {
-          eventStatus: this.eventStatus,
-          id: f.id
-        });
+      users: {
+        type: Array,
+        required: true,
+      },
+      remove: {
+        type: Function,
+        required: true,
       }
-    }
+    },
   }
 </script>  
 

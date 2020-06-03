@@ -39,17 +39,20 @@ export const mutations = {
   changeNickname(state, payload) {
     state.me.nickname = payload.nickname;
   },
-  removeFollow(state, payload) {
-    if(payload.eventStatus === 'followerList') {
-      const index = state.followerList.findIndex(v => v.id === payload.id);
-      state.followerList.splice(index, 1);
-    }
-
-    if(payload.eventStatus === 'followingList') {
-      const index = state.followingList.findIndex(v => v.id === payload.id);
-      state.followingList.splice(index, 1);
-    }
-  }
+  addFollower(state, payload) {
+    state.addFollower.push(payload)
+  },
+  addFollowing(state, payload) {
+    state.followingList.push(payload)
+  },
+  removeFollower(state, payload) {
+    const index = state.followerList.findIndex(v => v.id === payload.id);
+    state.followerList.splice(index, 1);
+  },
+  removeFollowing(state, payload) {
+    const index = state.followingList.findIndex(v => v.id === payload.id);
+    state.followingList.splice(index, 1);
+  },
 }
 
 // 비동기적이고 복잡한 작업으로 data를 변경할때 사용
@@ -70,7 +73,17 @@ export const actions = {
   changeNickname({commit}, payload) {
     commit('changeNickname', payload)
   },
-  removeFollow({commit}, payload) {
-    commit('removeFollow', payload)
-  }
+  addFollower({commit}, payload) {
+    commit('addFollower', payload)
+  },
+  addFollowing({commit}, payload) {
+    commit('addFollowing', payload)
+  },
+  removeFollower({commit}, payload) {
+    commit('removeFollower', payload)
+  },
+  removeFollowing({commit}, payload) {
+    // 실제로는 비동기 요청이 들어감
+    commit('removeFollowing', payload)
+  },
 }
