@@ -1,5 +1,5 @@
 <template>
-   <v-card>
+   <v-card style="margin-bottom: 20px">
      <v-container>
        <v-form ref="form" v-model="valid" @submit.prevent="onSubmitForm">
          <v-textarea
@@ -8,10 +8,10 @@
           auto-grow 
           clearable
           label="이떤 신기한 일이 있었나요?"
-          :hide-datails="hideDetails"
-          :success-messases="successMessages"
+          :hide-details="hideDetails"
+          :success-messages="successMessages"
           :success="success"
-          :rules="[v => !!v || '내용을 입력하세요.']"
+          :rules="[v => !!v.trim() || '내용을 입력하세요.']"
           @input="onChangeTextarea"
          >
           1
@@ -30,7 +30,7 @@ export default {
   data() {
     return {
       valid: false,
-      hideDetails: false,
+      hideDetails: true,
       successMessages: '',
       success: false,
       content: ''
@@ -40,10 +40,12 @@ export default {
     ...mapState('users', ['me'])
   },
   methods: {
-    onChangeTextarea() {
-      this.hideDetails = true;
-      this.success = false;
-      this.successMessages = '';
+    onChangeTextarea(value) {
+      if (value.length) {
+        this.hideDetails = true;
+        this.success = false;
+        this.successMessages = '';
+      }
     },
     onSubmitForm() {
       if (this.$refs.form.validate()) {
@@ -58,6 +60,7 @@ export default {
           createdAt: Date.now()
         })
           .then(() => {
+            this.content = '';
             this.hideDetails = false;
             this.success = true;
             this.successMessages = '게시글 등록 성공!'
