@@ -1,7 +1,33 @@
 export const state = () => ({
   me: null,
-  followerList: [],
-  followingList: []
+  followerList: [
+    {
+      nickname: '멈무',
+      id: 1
+    },
+    {
+      nickname: '수진',
+      id: 2
+    },
+    {
+      nickname: '곰나',
+      id: 3
+    }
+  ],
+  followingList: [
+    {
+      nickname: '멈무',
+      id: 1
+    },
+    {
+      nickname: '수진',
+      id: 2
+    },
+    {
+      nickname: '곰나',
+      id: 3
+    }
+  ]
 })
 
 // 단순한 작업으로 data를 변경할때 사용
@@ -12,6 +38,17 @@ export const mutations = {
   },
   changeNickname(state, payload) {
     state.me.nickname = payload.nickname;
+  },
+  removeFollow(state, payload) {
+    if(payload.stat === 'followerList') {
+      const index = state.followerList.findIndex(v => v.id === payload.id);
+      state.followerList.splice(index, 1);
+    }
+
+    if(payload.stat === 'followingList') {
+      const index = state.followingList.findIndex(v => v.id === payload.id);
+      state.followingList.splice(index, 1);
+    }
   }
 }
 
@@ -32,5 +69,8 @@ export const actions = {
   },
   changeNickname({commit}, payload) {
     commit('changeNickname', payload)
+  },
+  removeFollow({commit}, payload) {
+    commit('removeFollow', payload)
   }
 }
