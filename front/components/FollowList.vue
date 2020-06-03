@@ -13,12 +13,12 @@
   export default {
     props: {
       follow: Array,
-      stat: String
+      eventStatus: String
     },
     methods: {
       onRemoveFollow(f) {
         this.$store.dispatch('users/removeFollow', {
-          stat: this.stat,
+          eventStatus: this.eventStatus,
           id: f.id
         });
       }

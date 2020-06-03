@@ -40,12 +40,12 @@ export const mutations = {
     state.me.nickname = payload.nickname;
   },
   removeFollow(state, payload) {
-    if(payload.stat === 'followerList') {
+    if(payload.eventStatus === 'followerList') {
       const index = state.followerList.findIndex(v => v.id === payload.id);
       state.followerList.splice(index, 1);
     }
 
-    if(payload.stat === 'followingList') {
+    if(payload.eventStatus === 'followingList') {
       const index = state.followingList.findIndex(v => v.id === payload.id);
       state.followingList.splice(index, 1);
     }

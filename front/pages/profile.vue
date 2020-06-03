@@ -25,7 +25,7 @@
           <v-subheader>팔로잉</v-subheader>
           <follow-list 
             v-bind:follow="followerList" 
-            v-bind:stat="'followerList'"
+            eventStatus="followerList"
           />
         </v-container>
       </v-card>
@@ -34,7 +34,7 @@
           <v-subheader>팔로워</v-subheader>
           <follow-list 
             v-bind:follow="followingList" 
-            v-bind:stat="'followingList'"
+            eventStatus="followingList"
           />
         </v-container>
       </v-card>
