@@ -3,6 +3,7 @@ export const state = () => ({
 })
 
 // 단순한 작업으로 data를 변경할때 사용
+// 비동기 작업 X
 export const mutations = {
   setMe(state, payload) {
     state.me = payload;
