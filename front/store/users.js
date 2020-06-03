@@ -1,5 +1,7 @@
 export const state = () => ({
   me: null,
+  followerList: [],
+  followingList: []
 })
 
 // 단순한 작업으로 data를 변경할때 사용
@@ -7,6 +9,9 @@ export const state = () => ({
 export const mutations = {
   setMe(state, payload) {
     state.me = payload;
+  },
+  changeNickname(state, payload) {
+    state.me.nickname = payload.nickname;
   }
 }
 
@@ -24,5 +29,8 @@ export const actions = {
   },
   logOut({commit}, payload) {
     commit('setMe', null);
+  },
+  changeNickname({commit}, payload) {
+    commit('changeNickname', payload)
   }
 }
