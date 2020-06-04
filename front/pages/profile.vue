@@ -27,6 +27,7 @@
             :users="followingList" 
             :remove="removeFollowing"
           />
+          <v-btn @click="loadMoreFollowings" v-if="hasMoreFollowing" style="width:100%">더보기</v-btn>
         </v-container>
       </v-card>
       <v-card style="margin-bottom:20px;">
@@ -36,6 +37,7 @@
             :users="followerList" 
             :remove="removeFollower"
           />
+          <v-btn @click="loadMoreFollowers" v-if="hasMoreFollower" style="width:100%">더보기</v-btn>
         </v-container>
       </v-card>
     </v-container>
@@ -65,6 +67,16 @@
       followingList() {
         return this.$store.state.users.followingList
       },
+      hasMoreFollowing() {
+        return this.$store.state.users.hasMoreFollowing
+      },
+      hasMoreFollower() {
+        return this.$store.state.users.hasMoreFollower
+      }
+    },
+    fetch({ store }) {
+      store.dispatch('users/loadFollowers')
+      store.dispatch('users/loadFollowings')
     },
     methods: {
       onChangeNickname() {
@@ -78,6 +90,12 @@
       removeFollowing(id) {
         this.$store.dispatch('users/removeFollowing', { id })
       },
+      loadMoreFollowers() {
+        this.$store.dispatch('users/loadFollowers')
+      },
+      loadMoreFollowings() {
+        this.$store.dispatch('users/loadFollowings')
+      }
     },
     head() {
       return {
