@@ -62,7 +62,7 @@
         if(this.$refs.form.validate()) {
           this.$store.dispatch('users/logIn', {
             email: this.email,
-            nickname: '멈무버드'
+            nickname: '멈무'
           })
         }else {
           alert('유효하지 않습니다. 입력란을 확인해주세요.')
