@@ -61,6 +61,12 @@ export const actions = {
     // payload = 회원정보
     
     commit('setMe', payload); // === state.me = payload
+
+    this.$axios.post('/user', {
+      email: payload.email,
+      nickname: payload.nickname,
+      password: payload.password
+    })
   },
   logIn({commit}, payload) {
     commit('setMe', payload);

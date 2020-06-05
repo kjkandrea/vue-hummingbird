@@ -98,7 +98,8 @@
           // dispatch는 Promise이기에 then을 쓸 수 있음
           this.$store.dispatch('users/signUp', {
             nickname: this.nickname,
-            email : this.email
+            email : this.email,
+            password: this.password
           })
             .then(() => {
               this.$router.push({
