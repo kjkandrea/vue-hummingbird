@@ -1,13 +1,35 @@
 const express = require('express');
-
+const db = require('./models')
 const app = express();
 
+db.sequelize.sync();
+
+// 요청해서 온 json데이터를 파싱
+app.use(express.json());
+
+app.use(express.urlencoded({ extended: false }))
+
 app.get('/', (req, res) => {
-  res.send('안녕 멈무')
+  res.status(200).send('안녕 멈무')
 });
 
 app.get('/main', (req, res) => {
   res.send('나는 메인페이지야')
+});
+
+app.post('/user', async (req, res, next) => {
+  try {
+    const newUser = await db.User.create({
+      email: req.body.email,
+      password: req.body.password,
+      nickname: req.body.nickname
+    });
+    res.status(201).json(newUser)
+  } catch (err) {
+    console.log(err)
+    next(err)
+  }
+  
 });
 
 app.listen(3085, () => {
