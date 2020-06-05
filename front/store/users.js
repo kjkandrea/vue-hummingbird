@@ -62,7 +62,7 @@ export const actions = {
     
     commit('setMe', payload); // === state.me = payload
 
-    this.$axios.post('/user', {
+    this.$axios.post('http://localhost:3085/user', {
       email: payload.email,
       nickname: payload.nickname,
       password: payload.password

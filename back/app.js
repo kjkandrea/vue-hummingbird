@@ -1,12 +1,14 @@
 const express = require('express');
-const db = require('./models')
+const cors = require('cors');
+const bcrypt = require('bcrypt');
+
+const db = require('./models');
 const app = express();
 
 db.sequelize.sync();
 
-// 요청해서 온 json데이터를 파싱
-app.use(express.json());
-
+app.use(cors( 'http://localhost:3000' ));
+app.use(express.json()); // 요청해서 온 json데이터를 파싱
 app.use(express.urlencoded({ extended: false }))
 
 app.get('/', (req, res) => {
@@ -19,9 +21,10 @@ app.get('/main', (req, res) => {
 
 app.post('/user', async (req, res, next) => {
   try {
+    const hash = await bcrypt.hash(req.body.password, 12);
     const newUser = await db.User.create({
       email: req.body.email,
-      password: req.body.password,
+      password: hash,
       nickname: req.body.nickname
     });
     res.status(201).json(newUser)
