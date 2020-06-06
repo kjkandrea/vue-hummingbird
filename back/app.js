@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 const session = require('express-session');
 const cookie = require('cookie-parser');
+const morgan = require('morgan');
 
 const db = require('./models');
 const passportConfig = require('./passport');
@@ -13,6 +14,7 @@ db.sequelize.sync();
 // db.sequelize.sync({ force : true });
 passportConfig();
 
+app.use(morgan('dev'));
 app.use(cors( 'http://localhost:3000' ));
 app.use(express.json()); // 요청해서 온 json데이터를 파싱
 app.use(express.urlencoded({ extended: false }));
