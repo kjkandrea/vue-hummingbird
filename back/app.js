@@ -8,6 +8,7 @@ const morgan = require('morgan');
 
 const db = require('./models');
 const passportConfig = require('./passport');
+const userRouter = require('./routes/user');
 const app = express();
 
 db.sequelize.sync();
@@ -15,14 +16,21 @@ db.sequelize.sync();
 passportConfig();
 
 app.use(morgan('dev'));
-app.use(cors( 'http://localhost:3000' ));
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}));
 app.use(express.json()); // 요청해서 온 json데이터를 파싱
 app.use(express.urlencoded({ extended: false }));
 app.use(cookie('cookiesecret'));
 app.use(session({
   resave: false,
   saveUninitialized: false,
-  secret: 'cookiesecret'
+  secret: 'cookiesecret',
+  cookie: {
+    httpOnly: true,
+    secure: false
+  }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -35,46 +43,13 @@ app.get('/main', (req, res) => {
   res.send('나는 메인페이지야')
 });
 
-app.post('/user', async (req, res, next) => {
-  try {
-    const hash = await bcrypt.hash(req.body.password, 12);
-    const exUser = await db.User.findOne({
-      where: {
-        email: req.body.email
-      }
-    });
+app.use('/user', userRouter);
 
-    if (exUser) { // 이미 회원가입 되어있으면
-      return res.status(403).json({  // 거절
-        errorCode: 1,
-        message: '이미 회원가입 되어있습니다'
-      });
-    }
+app.post('/post', (req, res) => {
+  if (req.isAuthenticated()) { // 로그인 되어있는지 검사
 
-    const newUser = await db.User.create({
-      email: req.body.email,
-      password: hash,
-      nickname: req.body.nickname
-    });
-    return res.status(201).json(newUser)
-  } catch (err) {
-    console.log(err)
-    return next(err)
+
   }
-});
-
-const user = [
-
-]
-
-app.post('/user/login', (req, res) => {
-  req.body.email;
-  req.body.password;
-  // email 이랑 password 검사
-  await db.user.findOne();
-  // 세션에 저장
-  user[cookie] = 유저정보;
-  // 프론트에 쿠키 내려보내주기
 })
 
 app.listen(3085, () => {

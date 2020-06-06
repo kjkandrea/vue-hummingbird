@@ -4,7 +4,7 @@
       <v-form ref="form" v-model="valid" @submit.prevent="onSubmitForm">
         <v-container>
           <v-text-field
-            v-bind="email"
+            v-model="email"
             label="이메일"
             type="email"
             :rules="emailRules"
@@ -12,7 +12,7 @@
           >
           </v-text-field>
           <v-text-field
-            v-bind="password"
+            v-model="password"
             label="비밀번호"
             type="password"
             :rules="passwordRules"
@@ -62,7 +62,7 @@
         if(this.$refs.form.validate()) {
           this.$store.dispatch('users/logIn', {
             email: this.email,
-            nickname: '멈무'
+            password: this.password
           })
         }else {
           alert('유효하지 않습니다. 입력란을 확인해주세요.')

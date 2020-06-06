@@ -59,20 +59,37 @@ export const actions = {
   signUp({commit, state}, payload) {
     // 서버에 회원가입 요청을 보내는 부분
     // payload = 회원정보
-    
-    commit('setMe', payload); // === state.me = payload
-
     this.$axios.post('http://localhost:3085/user', {
       email: payload.email,
       nickname: payload.nickname,
       password: payload.password
+    }).then((res) => {
+      commit('setMe', res.data);
+    }).catch((err) => {
+      console.error(err)
+    });;
+  },
+  logIn({ commit }, payload) {
+    this.$axios.post('http://localhost:3085/user/login', {
+      email: payload.email,
+      password: payload.password
+    }, {
+      withCredentials: true
+    }).then((res) => {
+      commit('setMe', res.data);
+    }).catch((err) => {
+      console.error(err)
+    });
+  },
+  logOut({commit}) {
+    this.$axios.post('http://localhost:3085/user/logout', {}, {
+      withCredentials: true,
     })
-  },
-  logIn({commit}, payload) {
-    commit('setMe', payload);
-  },
-  logOut({commit}, payload) {
-    commit('setMe', null);
+    .then((data) => {
+      commit('setMe', null);
+    }).catch((err) => {
+      console.error(err)
+    });
   },
   changeNickname({commit}, payload) {
     commit('changeNickname', payload)
