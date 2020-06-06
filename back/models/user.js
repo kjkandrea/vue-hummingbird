@@ -1,27 +1,27 @@
 module.exports = (sequelize, DataTypes) => {
-  // User 테이블을 생성하기 위해
-  const User = sequelize.define('User' , {
-    email : {
+  const User = sequelize.define('User', {
+    email: {
       type: DataTypes.STRING(40), // 40자 이내
-      allowNull : false, // required
+      allowNull: false, // 필수
       unique: true, // 중복금지
     },
     nickname: {
       type: DataTypes.STRING(20),
-      allowNull : false
+      allowNull: false,
     },
     password: {
       type: DataTypes.STRING(100),
-      allowNull : false
+      allowNull: false,
     },
   }, {
     charset: 'utf8',
-    collate: 'utf8_general_ci' // 한글 받기 위해서
+    collate: 'utf8_general_ci', // 한글 저장돼요
   });
+
   User.associate = (db) => {
     db.User.hasMany(db.Post);
     db.User.hasMany(db.Comment);
   };
 
-  return User
-}
+  return User;
+};
