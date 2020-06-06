@@ -68,6 +68,13 @@ const user = [
 ]
 
 app.post('/user/login', (req, res) => {
+  req.body.email;
+  req.body.password;
+  // email 이랑 password 검사
+  await db.user.findOne();
+  // 세션에 저장
+  user[cookie] = 유저정보;
+  // 프론트에 쿠키 내려보내주기
 })
 
 app.listen(3085, () => {
