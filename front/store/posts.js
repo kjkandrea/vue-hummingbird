@@ -42,7 +42,7 @@ export const mutations =  {
 export const actions = {
   add({ commit, state }, payload) {
     // 서버에 게시글 등록
-    this.$axios.post('http://localhost:3085/post', {
+    this.$axios.post('/post', {
       content: payload.content,
       imagePaths: state.imagePaths
     }, {
@@ -57,7 +57,7 @@ export const actions = {
     commit('addMainPost', payload)
   },
   remove({ commit }, payload) {
-    this.$axios.delete(`http://localhost:3085/post/${payload.postId}`, {
+    this.$axios.delete(`/post/${payload.postId}`, {
       withCredentials: true
     })
      .then((res) => {
@@ -69,7 +69,7 @@ export const actions = {
     commit('removeMainPost', payload)
   },
   loadComment({ commit, payload }) {
-    this.$axios.get('http://localhost:3085/post/${payload.postId}/comments')
+    this.$axios.get('/post/${payload.postId}/comments')
       .then((res) => {
         commit('loadComments', res.data)
       })
@@ -78,7 +78,7 @@ export const actions = {
       })
   },
   addComment({ commit }, payload) {
-    this.$axios.post(`http://localhost:3085/post/${payload.postId}/comment`, {
+    this.$axios.post(`/post/${payload.postId}/comment`, {
       content: payload.content
     }, {
       withCredentials: true
@@ -103,7 +103,7 @@ export const actions = {
     }
     },
   uploadImages({ commit }, payload) {
-    this.$axios.post('http://localhost:3085/post/images', payload, {
+    this.$axios.post('/post/images', payload, {
       withCredentials: true
     })
       .then((res) => {

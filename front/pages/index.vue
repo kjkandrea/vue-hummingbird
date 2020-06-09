@@ -35,7 +35,7 @@
     // fetch : Nuxt에서 지원하는 메소드
     // 컴포넌트가 렌더링 되기전에 Vuex에 비동기적으로 데이터를 넣을 때 사용
     fetch({ store }) {
-      store.dispatch('posts/loadPosts')
+      return store.dispatch('posts/loadPosts')
     },
     mounted() {
       window.addEventListener('scroll', this.onScroll)

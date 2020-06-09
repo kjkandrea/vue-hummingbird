@@ -56,7 +56,7 @@ export const mutations = {
 // 비동기적이고 복잡한 작업으로 data를 변경할때 사용
 export const actions = {
   loadUser({ commit }) {
-    this.$axios.get('http://localhost:3085/user', {
+    this.$axios.get('/user', {
       withCredentials: true,
     })
       .then((res) => {
@@ -70,7 +70,7 @@ export const actions = {
   signUp({commit, state}, payload) {
     // 서버에 회원가입 요청을 보내는 부분
     // payload = 회원정보
-    this.$axios.post('http://localhost:3085/user', {
+    this.$axios.post('/user', {
       email: payload.email,
       nickname: payload.nickname,
       password: payload.password
@@ -81,7 +81,7 @@ export const actions = {
     });;
   },
   logIn({ commit }, payload) {
-    this.$axios.post('http://localhost:3085/user/login', {
+    this.$axios.post('/user/login', {
       email: payload.email,
       password: payload.password
     }, {
@@ -93,7 +93,7 @@ export const actions = {
     });
   },
   logOut({commit}) {
-    this.$axios.post('http://localhost:3085/user/logout', {}, {
+    this.$axios.post('/user/logout', {}, {
       withCredentials: true,
     })
     .then((data) => {
