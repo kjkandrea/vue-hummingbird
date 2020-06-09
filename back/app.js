@@ -12,6 +12,7 @@ const postRouter = require('./routes/post');
 const app = express();
 
 db.sequelize.sync();
+//db.sequelize.sync({ force : true });
 passportConfig();
 
 app.use(morgan('dev'));
@@ -36,7 +37,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get('/', (req, res) => {
-  res.status(200).send('안녕 제로초');
+  res.status(200).send('안녕 멈무');
 });
 
 app.use('/user', userRouter);
