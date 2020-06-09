@@ -55,6 +55,17 @@ export const mutations = {
 
 // 비동기적이고 복잡한 작업으로 data를 변경할때 사용
 export const actions = {
+  loadUser({ commit }) {
+    this.$axios.get('http://localhost:3085/user', {
+      withCredentials: true,
+    })
+      .then((res) => {
+        commit('setMe', res.data);
+      })
+      .catch(() => {
+
+      })
+  },
   // context = { commit, dispatch, state, rootState, getters, rootGetters }
   signUp({commit, state}, payload) {
     // 서버에 회원가입 요청을 보내는 부분
