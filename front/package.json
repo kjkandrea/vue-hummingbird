@@ -21,4 +21,5 @@
     "eslint-plugin-vue": "^6.2.2"
   },
   "author": "",
+  "license": "ISC"
 }
