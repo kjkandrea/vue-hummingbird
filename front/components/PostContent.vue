@@ -1,4 +1,4 @@
- <template>
+<template>
   <div>
     <post-images :images="post.Images || []" />
     <v-card-title>
