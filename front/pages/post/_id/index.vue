@@ -8,18 +8,18 @@
 </template>
 
 <script>
-import PostCard from '~/components/PostCard'
+  import PostCard from '~/components/PostCard';
 
-export default {
-  components: {
-    PostCard
-  },
-  computed: {
-    post() {
-      return this.$store.state.posts.mainPosts.find(v => v.id === parseInt(this.$route.params.id, 10))
-    }
-  }
-}
+  export default {
+    components: {
+      PostCard,
+    },
+    computed: {
+      post() {
+        return this.$store.state.posts.mainPosts.find(v => v.id === parseInt(this.$route.params.id, 10));
+      },
+    },
+  };
 </script>
 
 <style>
