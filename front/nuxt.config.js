@@ -13,5 +13,8 @@ module.exports = {
     browserBaseURL: 'http://localhost:3085',
     BaseURL: 'http://localhost:3085',
     https: false
+  },
+  server: {
+    post: 3080
   }
 }
